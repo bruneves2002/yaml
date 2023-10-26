@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: temp-converter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: temp-converter
+  template:
+    metadata:
+      labels:
+        app: temp-converter
+    spec:
+      containers:
+      - name: temp-converter
+        image: bruneves2002/conversao-temperatura
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: temp-converter
+spec:
+  selector:
+    app: temp-converter
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+  type: LoadBalancer  
