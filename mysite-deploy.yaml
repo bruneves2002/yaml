@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meudeploy
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: webcolor
+  template:
+    metadata:
+      labels:
+        app: webcolor
+    spec:
+      containers:
+      - name: website
+        image: bruneves2002/web-color:green
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-web-color
+spec:
+  selector:
+    app: webcolor
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+  type: NodePort    
