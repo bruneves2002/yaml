@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: strigus
+  name: strigus
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: strigus
+  template:
+    metadata:
+      labels:
+        app: strigus
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "0.5"
+            memory: "128Mi"
+          requests:
+            cpu: "0.3"
+            memory: "64Mi"
